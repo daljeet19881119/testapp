@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { VerifycodePage } from '../verifycode/verifycode';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -21,9 +21,9 @@ export class VerifynumberPage {
   // country
   country: number = 91;
   mobileno: number = null;
-  verficationCode: any;
+  verficationCode: number = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, public loadingCtrl: LoadingController) {
             
   }
 
@@ -56,18 +56,7 @@ export class VerifynumberPage {
     else
     {
       // sendSMS
-      this.sendSMS();
-
-      // goto verify page after 1 second
-      setTimeout(() => {
-
-        // push to verifycode page
-        this.navCtrl.push(VerifycodePage,{
-          phone: this.mobileno,
-          country: this.country,
-          code: this.verficationCode
-        });
-      }, 1000); 
+      this.sendSMS();     
     }
   }
 
@@ -78,6 +67,26 @@ export class VerifynumberPage {
     this.http.get('http://ionic.dsl.house/heartAppApi/verify-users.php?country='+this.country+'&mobileno='+this.mobileno).map(res => res.json()).subscribe(data => {
       this.verficationCode = data.data.verification_code;
       console.log(data);
+
+      // check if verification code is null then show loader
+      if(this.verficationCode !== null) 
+      {
+
+        // push to verifycode page
+        this.navCtrl.push(VerifycodePage,{
+          phone: this.mobileno,
+          country: this.country,
+          code: this.verficationCode
+        });
+        
+      }
+      else
+      {
+          let loader = this.loadingCtrl.create({
+            content: "Please wait..."
+          });
+        loader.present();
+      } 
     }, err => {
       console.log('Oops!');
     });

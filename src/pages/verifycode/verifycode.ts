@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { UserinfoPage } from '../userinfo/userinfo';
 
 /**
  * Generated class for the VerifycodePage page.
@@ -23,7 +24,7 @@ export class VerifycodePage {
   code: number;
   verifyCode: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http, private modalCtrl: ModalController, private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -42,9 +43,23 @@ export class VerifycodePage {
       {
         // verify user
         this.verifyUser(code);
+
+        // gotoUserinfoPage
+        const modal = this.modalCtrl.create(UserinfoPage, {
+                          mobileno: this.mobileno,
+                          country: this.country                      
+                      });
+        modal.present();
       }
       else
       {
+        // show alert
+        const alert = this.alertCtrl.create({
+          title: 'Heart App',
+          message: 'Your verification code does not matched.',
+          buttons: ['ok']
+        });
+        alert.present();
         console.log('Oops code not matched!');
       }
   }
