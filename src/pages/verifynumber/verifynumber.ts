@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { VerifycodePage } from '../verifycode/verifycode';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 
 /**
  * Generated class for the VerifynumberPage page.
@@ -22,9 +23,12 @@ export class VerifynumberPage {
   country: number = 91;
   mobileno: number = null;
   verficationCode: number = null;
+  uuid: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, public loadingCtrl: LoadingController) {
+  constructor(private uniqueDeviceID: UniqueDeviceID, public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, private http: Http, public loadingCtrl: LoadingController) {
             
+    // call getuniqueDeviceID
+    this.getuniqueDeviceID();
   }
 
   ionViewDidLoad() {
@@ -60,13 +64,29 @@ export class VerifynumberPage {
     }
   }
 
+  // getuniqueDeviceID
+  getuniqueDeviceID() {
+    this.uniqueDeviceID.get()
+      .then((uuid: any) => {this.uuid = uuid;})
+      .catch((error: any) => console.log(error));
+  }
   
   // sendSMS
   sendSMS() {
+
     // request data from server
-    this.http.get('http://ionic.dsl.house/heartAppApi/verify-users.php?country='+this.country+'&mobileno='+this.mobileno).map(res => res.json()).subscribe(data => {
+    this.http.get('http://ionic.dsl.house/heartAppApi/verify-users.php?country='+this.country+'&mobileno='+this.mobileno+'&uuid='+this.uuid).map(res => res.json()).subscribe(data => {
       this.verficationCode = data.data.verification_code;
       console.log(data);
+
+      let userExists: any;
+      // check if number already exists
+      if(data.msg === 'update')
+      {
+        userExists = 'true';
+      }else{
+        userExists = 'false';
+      }
 
       // check if verification code is null then show loader
       if(this.verficationCode !== null) 
@@ -76,7 +96,8 @@ export class VerifynumberPage {
         this.navCtrl.push(VerifycodePage,{
           phone: this.mobileno,
           country: this.country,
-          code: this.verficationCode
+          code: this.verficationCode,
+          userExists: userExists
         });
         
       }

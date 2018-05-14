@@ -13,6 +13,8 @@ import { SendsmsPage } from '../pages/sendsms/sendsms';
 import { SMS } from '@ionic-native/sms';
 import { UserinfoPage } from '../pages/userinfo/userinfo';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { LoaderPage } from '../pages/loader/loader';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
     VerifycodePage,
     SendsmsPage,
     UserinfoPage,
-    DashboardPage
+    DashboardPage,
+    LoaderPage
   ],
   imports: [
     BrowserModule,
@@ -37,12 +40,14 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
     VerifycodePage,
     SendsmsPage,
     UserinfoPage,
-    DashboardPage
+    DashboardPage,
+    LoaderPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SMS,
+    UniqueDeviceID,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
