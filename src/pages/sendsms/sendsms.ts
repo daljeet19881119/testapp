@@ -29,7 +29,13 @@ export class SendsmsPage {
 
   async sendTextMessage() {
     try {
-      await this.sms.send(String(this.phoneNumber),this.textMessage);
+      let options: {
+        replaceLineBreaks: true,
+        android: {
+          intent: 'INTENT'
+        }
+      }
+      await this.sms.send(String(this.phoneNumber),this.textMessage,options);
       const toast = this.toast.create({
         message: 'Text was sent',
         duration: 3000
