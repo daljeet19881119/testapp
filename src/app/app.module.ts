@@ -15,6 +15,8 @@ import { UserinfoPage } from '../pages/userinfo/userinfo';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { LoaderPage } from '../pages/loader/loader';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { YtvideoPage } from '../pages/ytvideo/ytvideo';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { LoaderPage } from '../pages/loader/loader';
     SendsmsPage,
     UserinfoPage,
     DashboardPage,
-    LoaderPage
+    LoaderPage,
+    YtvideoPage
   ],
   imports: [
     BrowserModule,
@@ -41,13 +44,15 @@ import { LoaderPage } from '../pages/loader/loader';
     SendsmsPage,
     UserinfoPage,
     DashboardPage,
-    LoaderPage
+    LoaderPage,
+    YtvideoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SMS,
     UniqueDeviceID,
+    ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

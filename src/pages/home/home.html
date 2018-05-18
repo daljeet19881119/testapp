@@ -9,4 +9,8 @@
 <ion-content padding>
   <button ion-button (click)="gotoVerifyPage()">Start Registration</button>
   <button ion-button (click)="gotoSendsmsPage()">Send SMS</button>
+  <div class="iframe-div">
+    <iframe [src]="getYoutubeUrl()" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
 </ion-content>
+
