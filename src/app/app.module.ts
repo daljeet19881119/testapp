@@ -17,6 +17,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { LoaderPage } from '../pages/loader/loader';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { YtvideoPage } from '../pages/ytvideo/ytvideo';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { YtvideoPage } from '../pages/ytvideo/ytvideo';
     SMS,
     UniqueDeviceID,
     ScreenOrientation,
+    AndroidPermissions,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
