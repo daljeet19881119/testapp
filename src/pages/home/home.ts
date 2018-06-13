@@ -6,6 +6,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { DomSanitizer } from '@angular/platform-browser'
 import { YtvideoPage } from '../ytvideo/ytvideo';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { IonicStoragePage } from '../ionic-storage/ionic-storage';
 declare var SMS:any;
 
 
@@ -92,5 +93,10 @@ export class HomePage {
   // getYoutubeUrl
   getYoutubeUrl() {
     return this.dom.bypassSecurityTrustResourceUrl(this.youtubeUrl);
+  }
+
+  // gotoIonicStoragePage
+  gotoIonicStoragePage() {
+    this.navCtrl.push(IonicStoragePage);
   }
 }

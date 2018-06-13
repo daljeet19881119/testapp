@@ -18,6 +18,8 @@ import { LoaderPage } from '../pages/loader/loader';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { YtvideoPage } from '../pages/ytvideo/ytvideo';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { IonicStorageModule } from '@ionic/storage';
+import { IonicStoragePage } from '../pages/ionic-storage/ionic-storage';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,14 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
     UserinfoPage,
     DashboardPage,
     LoaderPage,
-    YtvideoPage
+    YtvideoPage,
+    IonicStoragePage
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +50,8 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
     UserinfoPage,
     DashboardPage,
     LoaderPage,
-    YtvideoPage
+    YtvideoPage,
+    IonicStoragePage
   ],
   providers: [
     StatusBar,
